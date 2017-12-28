@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Formulaire de Contact</title>
+    <style>
+        * {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+        form fieldset {
+            border:1px solid #CCC;
+            border-radius:10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+            width: 500px;
+            margin: 40px auto;
+        }
+        form input, form textarea {
+            width: 100%;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <form id="MonFormulaire" action="contact.php" method="GET">
+        <fieldset>
+            <input type="text" id="fullname" placeholder="Nom et Prénom">
+            <input type="email" id="email" placeholder="Email">
+            <input type="tel" id="tel" placeholder="Téléphone">
+            <input type="text" id="sujet" placeholder="Sujet">
+            <textarea id="message" cols="30" rows="10" placeholder="Message..."></textarea>
+            <input type="submit" value="Envoyer ma Demande">
+        </fieldset>
+    </form>
+
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        /* -------------------------------------------------
+        |             ~~~   LA CONSIGNE     ~~~            |
+        |                                                  |
+        | A partir du Formulaire de Contact ci-dessus :    |
+        |                                                  |
+        |   1. Afficher à l'utilisateur un Récapitulatif   |
+        |   de sa demande de contact.                      |
+        |                                                  |
+        ------------------------------------------------- */
+
+        // 1. -- Attente que le DOM soit chargé !
+        $(function() {
+
+            console.log($("#MonFormulaire"));
+            $('#MonFormulaire').submit(function() { 
+
+              
+
+                /*  $('#MonFormulaire')[0].each( 
+                     function(key, val){
+                         alert(key + ' - ' + val);
+                     }
+                 ) */
+                
+                event.preventDefault();
+
+                var fullname = $('#fullname').val();
+                var email    = $('#email').val();
+                var tel      = $('#tel').val();
+                var sujet    = $('#sujet').val();
+                var message  = $('#message').val();
+
+                var input = $('#MonFormulaire input, #MonFormulaire textarea');
+                
+                
+                $("body").replaceWith('<div class="addRecap"></div>')
+
+                for(let i=0 ; i < (input.length-1); i++) {
+                    $('<p>').append(input[i].placeholder + " - " + input[i].value).appendTo('.addRecap');
+                }
+               // console.log(input);
+
+
+             /*    $('.addRecap').replaceWith(" vous vous appelez : " + fullname + "<br>votre mail est : " + email + "<br> votre tel est : " + tel + "<br>votre sujet est : " + sujet + "<br>votre message est : " + message +"<br>votre message à bien été transmit. Merci de votre visite"); */
+
+
+
+            });
+           
+        });
+        
+    </script>
+
+</body>
+</html>
