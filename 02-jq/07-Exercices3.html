@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercice 7</title>
+</head>
+<body>
+       
+    <form id="MonFormulaire" method="post" action="connexion.php">
+        <input type="text" name="email" placeholder="Email" /><br /><br />
+        <input type="text" name="mdp" placeholder="Mot de Passe" /><br /><br />       
+        <input type="submit" id="submit" value="Connexion" />
+    </form>
+    
+    <!-- CONSIGNE : Avec l'aide de jQuery, vous devrez :
+    
+        1. A l'aide d'une API de Géolocalisation, vous affichez dans un paragraphe du formulaire l'adresse IP ainsi que la Ville et/ou Code Postal de l'utilisateur connecté.
+        
+        //  Utilisation de JSONP : geoip.nekudo.com || ip-api.com
+     
+    -->
+   
+    <!-- Intégration de jQuery -->
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+
+    <script>
+        $(() => {
+
+            $ajax("http://ip-api.com/json").done(function(res) {
+                console.log(res);
+            });
+
+            $.getJSON("http://ip-api.com/json",function (data) {
+                    console.log(data);
+                     document.write(data.query);
+                }
+            );
+/* 
+            function success(pos) {
+                var crd = pos.coords;
+
+                console.log('Votre position actuelle est :');
+                console.log(`Latitude : ${crd.latitude}`);
+                console.log(`Longitude: ${crd.longitude}`);
+                console.log(`Plus ou moins ${crd.accuracy} mètres.`);
+            };
+           navigator.geolocation.getCurrentPosition(success);  */
+
+
+           // http://ip-api.com/json
+
+        });
+    </script>
+
+</body>
+</html>
