@@ -3,26 +3,69 @@ $(function() {
     
     // -- Déclaration de Variables
     var CollectionDeContacts = [];
+    if(localStorage.getItem("Repertoire")) {
+        CollectionDeContacts = JSON.parse(localStorage.getItem("Repertoire"));
+        $(".aucuncontact").remove();
+        //fonction appellée si refresh de la page
+        for (let i = 0; i < CollectionDeContacts.length; i++) {
+            const UnContact = CollectionDeContacts[i];
+            const indexEnCour = CollectionDeContacts.indexOf(UnContact);            
+            creerligneTableauContact(UnContact, indexEnCour);
+        }
+    }
 
     /* --------------------------------------------------------------
                         DECLARATION DES FONCTIONS
     -------------------------------------------------------------- */
 
-    // -- Fonction ajouterContact(Contact) : Ajouter un Contact dans le tableau de Contacts, mettre à jour le tableau HTML, réinitialiser le formulaire et afficher une notification.
-    function ajouterContact(UnContact) {}
+   
 
+    // -- Fonction ajouterContact(Contact) : Ajouter un Contact dans le tableau de Contacts, mettre à jour le tableau HTML, réinitialiser le formulaire et afficher une notification.
+    function ajouterContact(UnContact) {
+        CollectionDeContacts.push(UnContact);
+        //l'index du tableau où l'élément est enregistré :
+        var indexEnCour = CollectionDeContacts.indexOf(UnContact);
+        window.localStorage.setItem("Repertoire", JSON.stringify(CollectionDeContacts));
+        creerligneTableauContact(UnContact, indexEnCour);
+    }
+    
+   
+
+
+    function creerligneTableauContact(UnContact, indexEnCour) {
+        //je met à jours le tableau html
+        $("tbody").append("<tr id='index"+ indexEnCour +"'>");
+        $("#index"+indexEnCour).append("<td>" + UnContact.nom).append("<td>" + UnContact.prenom).append("<td>" + UnContact.email).append("<td>" + UnContact.tel);
+    }
     // -- Fonction RéinitialisationDuFormulaire() : Après l'ajout d'un contact, on remet le formulaire à 0 !
-    function reinitialisationDuFormulaire() {}
+    function reinitialisationDuFormulaire(resetInput) {
+        //je selectionne mes input
+        for(let i = 0 ; i < resetInput.length ; i++) {
+            resetInput[i].value = '';
+            $(resetInput[i]).css('background','white').css('color','black');
+        }
+    }
 
     // -- Affichage d'une Notification
-    function afficheUneNotification() {}
+    function afficheUneNotification() {
+        $('.alert').toggle('slow').delay(3000).toggle("slow");
+    }
 
     // -- Vérification de la présence d'un Contact dans Contacts
     function estCeQunContactEstPresent(UnEmail) {
-        if(CollectionDeContacts.length == 0 ) {
-           //mon tableau est vide donc je peux ajouter le 1er contact
-          return false;
+        //je parcours la collection
+        for(let i = 0 ; i < CollectionDeContacts.length ; i++) {
+
+            //pour chaque contact je vérifie le mail
+            if(CollectionDeContacts[i].email == UnEmail)
+            {             
+                return true;
+            }
         }
+        //si je sors du for, c'est que le mail n'est pas présent dans le répertorie, donc je peux l'ajouter
+        $(".aucuncontact").remove();
+        return false;
+        
     }
 
     function infoValide(info) {
@@ -54,44 +97,54 @@ $(function() {
 
         // -- Stopper la redirection de la page
         e.preventDefault();
-
         // -- Récupération des champs à vérifier si vide
         var inputCheck = $('input');
-        var contact = [];
-        var nbError = 0;
-
-
+        var contact = {};
+        var alertError = ''; // false si pas d'erreur, sinon j'ai un message d'arlerte dans la variable
+        var valideMail;
         for(i = 0 ; i < inputCheck.length ; i++){
             let champ = inputCheck[i];
-            console.log(champ.name);
             if( $(champ).val().length == 0){
                 //un champ input est vide.
-                nbError += 1;
-                inputCheck.css('background','red').css('color','white');
+                $(champ).css('background','red').css('color','white');
+                alertError += 'Attention : vous devez saisir le champ - ' + champ.name + ' - pour valider le formulaire ! \n';
             }
             else{
+                //je vérifie que le champ mail est bien un mail 
+                if(champ.name=='email') {
+                    valideMail = validateEmail(champ.value);
+                     //si le réponse est FALSE, j'affiche un message d'erreur
+                    if(valideMail==false){
+                        alertError+='Attention : vous devez saisir un email valide';
+                    }
+                }
                 //j'ajoute l'information dans un tableau contact
-                contact.push(champ);
+                contact[champ.name]=champ.value;
             }
-        }
-       console.log(contact);
-        // -- Si mesInformationsSontValides Alors nbError = 0
-        if(nbError == 0 ){
-            //je récupère l'adresse mail
-            let mail = $('input[name="email"]').val();
-            if(!estCeQunContactEstPresent(mail)){
+        } // fin du For
+
+        // -- Si mesInformationsSontValides Alors alertError = si pas de chaine de caractere
+        if(alertError.length == 0 ){
+            if(!estCeQunContactEstPresent(contact.email)){
+                //si contact n'existe pas dans la collection 
+                //j'ajoute le contact dans le Collection / dans le tableau HTML 
                 ajouterContact(contact);
+                // puis je vide le formulaire
+                reinitialisationDuFormulaire(inputCheck);
+                // puis j'affiche une popUp
+                afficheUneNotification();
+            }
+            else{
+                //un contact existe déjà avec ce mail
+                alert("ATTENTION : ce contact existe déjà dans votre répertoir !")
             }
         }
         // -- Sinon...
         //si j'ai au moins une erreur j'affiche un message pour qu'il le saissise
         else{
-            alert("ATTENTION ! vous devez saisir vous les champs du formulaire")
+            alert(alertError);
         }
 
-        
-      
-
-    });
+    }); //fin du formulaire
 
 }); // -- Fin de jQuery READY !
