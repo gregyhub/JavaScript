@@ -3,9 +3,10 @@ $(function() {
     
     // -- Déclaration de Variables
     var CollectionDeContacts = [];
+    $('.aucuncontact').show();
     if(localStorage.getItem("Repertoire")) {
         CollectionDeContacts = JSON.parse(localStorage.getItem("Repertoire"));
-        $(".aucuncontact").remove();
+        $(".aucuncontact").hide();
         //fonction appellée si refresh de la page
         for (let i = 0; i < CollectionDeContacts.length; i++) {
             const UnContact = CollectionDeContacts[i];
@@ -25,21 +26,25 @@ $(function() {
         CollectionDeContacts.push(UnContact);
         //l'index du tableau où l'élément est enregistré :
         var indexEnCour = CollectionDeContacts.indexOf(UnContact);
-        window.localStorage.setItem("Repertoire", JSON.stringify(CollectionDeContacts));
+        sauverEnLocal();
+        
         creerligneTableauContact(UnContact, indexEnCour);
     }
     
-   
+    function sauverEnLocal() {
+        window.localStorage.setItem("Repertoire", JSON.stringify(CollectionDeContacts));
+    }
 
 
     function creerligneTableauContact(UnContact, indexEnCour) {
         //je met à jours le tableau html
         $("tbody").append("<tr id='index"+ indexEnCour +"'>");
-        $("#index"+indexEnCour).append("<td>" + UnContact.nom).append("<td>" + UnContact.prenom).append("<td>" + UnContact.email).append("<td>" + UnContact.tel);
+        $("#index"+indexEnCour).append("<td>" + UnContact.nom).append("<td>" + UnContact.prenom).append("<td>" + UnContact.email).append("<td>" + UnContact.tel).append('<td><a id="index'+indexEnCour+'" href="#">Supprimer</a></td>');
     }
     // -- Fonction RéinitialisationDuFormulaire() : Après l'ajout d'un contact, on remet le formulaire à 0 !
     function reinitialisationDuFormulaire(resetInput) {
         //je selectionne mes input
+        // --> $('#contact').get(0).reset();
         for(let i = 0 ; i < resetInput.length ; i++) {
             resetInput[i].value = '';
             $(resetInput[i]).css('background','white').css('color','black');
@@ -60,20 +65,31 @@ $(function() {
             if(CollectionDeContacts[i].email == UnEmail)
             {             
                 return true;
+                break;
             }
         }
         //si je sors du for, c'est que le mail n'est pas présent dans le répertorie, donc je peux l'ajouter
-        $(".aucuncontact").remove();
+        $(".aucuncontact").hide();
         return false;
-        
     }
 
-    function infoValide(info) {
-        infoOK = true;
-        if(info.length == 0) {
-            infoOK = false;
+
+    $('a').on('click', function(e) {
+        e.preventDefault();
+        //je récupère l'index du contact à supprimer
+        indexASupp = this.id.substring(5)
+        //je le supprime de la collection
+        CollectionDeContacts.splice(indexASupp,1);
+        sauverEnLocal();
+        //maintenant je met à jours le tableau HTML
+        indexASupp = "index"+indexASupp;
+        $('#'+indexASupp).remove();
+        if(CollectionDeContacts.length==0){
+            $(".aucuncontact").show();
+            storage.removeItem("Repertoire");
         }
-    }
+    });
+    
 
     // -- Vérification de la validité d'un Email
     // : https://paulund.co.uk/regular-expression-to-validate-email-address
