@@ -1,0 +1,81 @@
+body{
+    text-align: center;
+}
+
+
+.glyphicon{
+    color:#9d9d9d;
+}
+
+/*================================================
+-- TITRES----------------------------------------
+=================================================*/
+h2 {
+    color: white;
+    font-weight: bold;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+h3 {
+    color: white;
+    font-weight: normal;
+}
+
+
+/*================================================
+-- NAV ----------------------------------------
+=================================================*/
+.navcenter{
+    margin:auto;
+    width:50%;
+}
+.navbar-nav>li>a, .ico{
+    padding: 15px 40px;
+    color:white;
+}
+
+/*================================================
+-- HEADER ----------------------------------------
+=================================================*/
+header{
+    background: #141414;
+}
+header a{
+    display:inline-block;
+    padding: 20px 20px;
+}
+
+
+/*================================================
+-- SECTONS ----------------------------------------
+=================================================*/
+.big-img{
+    background-color: black;
+}
+.big-img img{
+    width:700px;
+}
+
+/*================================================
+-- FORMULAIRE----------------------------------------
+=================================================*/
+
+.contact{
+    background: #000;
+    padding-bottom: 50px;
+}
+.contact form{
+    width:50%;
+    margin:auto;
+}
+form placeholder{
+    color:#000;
+}
+
+
+footer{
+    height:50px;
+    line-height: 50px;
+    background: #1E1E1E;
+    color: #fff;
+}
