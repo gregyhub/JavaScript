@@ -1,0 +1,53 @@
+BOWER 
+== permet de gérer les dépendances==
+->dans node js prompt -> bower init (si fonctionne pas dans git bash)
+    > il créer un fichier json (bower.json) avec le récap et les dépendances dont ont aura besoin pour le projet
+-> bower install bootstrap-sass --save (le --save ajoute la dépendance dans le fichier json)
+-> bower install bootstrap@3.3.7 --save (car la dernier version de gulp plante l'import du bootstrap sass)
+-> bower install font-awesome --save
+-> la commande bower install permet d'installer les dépendances directement si le projet change de main par exemple.
+
+2 plugin Polyfill
+== des plug JS pour adapter le site si le navigateur ne reconnait pas des fonctionnalitées récentes ==
+->bower install html5shiv --save
+->bower install repond --save
+
+
+SASS / LESS
+== Pre processeur CSS ==
+permet d'ajouter des fonctionalité qui n'existe pas dans le CSS avec par exemple des variable. > possible de déclarer des variable couleurs 
+LESS fonctionne avec nodejs
+SASS fonctionne avec ruby
+->il complie le code en CSS.
+
+Rubyinstaller.org > V 2.4.3.1
+> pour pouvoir installer SASS
+
+CMD 
+-> cd changer le dossier
+-> ls afficher la liste des dossiers et fichiers
+-> mkdir creer un dossier
+-> touch creer un fichier
+-> rmdir supp un dossier (si il est  vide sinon vider les fichiers avant)
+
+
+
+
+GULP
+== automatiseur de Tache ==
+nodejs doit etre instalé
+-> npm install gulp -g (le -g pour l'installer sur toute la machine et pas uniquement sur le répertoire en cours)
+-> gulp -v pour connaitre la version
+Besoin de 2 fichier 
+-> package.json : fichier de dépendance nodejs
+-> gulpfile.js : la liste des taches
+puis
+-> npm init > génère le fichier "package.json"
+-> npm install gulp --save-dev > creer les dépendances
+-> npm install gulp-sass@2.3.2 --save-dev
+-> npm install gulp-sourcemaps --save-dev
+-> npm install gulp-clean-css --save-dev
+-> npm install gulp-autoprefixer --save-dev
+-> npm install gulp-rename --save-dev
+-> npm install gulp-run-sequence --save-dev
+-> npm install gulp-typescript typescript --save-dev
