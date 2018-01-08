@@ -51,3 +51,25 @@ puis
 -> npm install gulp-rename --save-dev
 -> npm install gulp-run-sequence --save-dev
 -> npm install gulp-typescript typescript --save-dev
+
+
+Concept ANGULAR
+*MVVM - > Model / view / view / Model
+= Two May Data Binding
+*single page app
+une appli est un Modul. il inclu plusieurs composants et des services
+un Compsant = une vue HTML / un Modèle / Un CSS
+Routeur Angular pour changer la vue
+Angular utilise typescript (une version amélioré de JS)
+----------
+installer angular cli 
+->npm install -g @angular/cli  ( ng -v pour vérifier la version)
+---------
+créer une app
+->ng new ContactApp
+->cd ContactApp
+->ng serve 
+-> url : loalhost:4200
+---------
+() j'emet un fonction sur un evenement
+[] j'écoute quelque chose sur une propriété
