@@ -1,0 +1,11 @@
+
+      <div *ngIf="contact" class="jumbotron">
+        <h2 >{{ getNomComplet(contact) }}
+        <small>{{ contact.email }}</small></h2>
+        <input type="text" class="form-control" placeholder="saissez votre prénom" [(ngModel)]="contact.prenom"/> <br />
+        <input type="text" class="form-control" placeholder="saissez votre nom" [(ngModel)]="contact.nom"/>
+      </div>
+      <div *ngIf="!contact" class="jumbotron">
+          <span class="glyphicon glyphicon-user"></span>
+          <h2>Bienvenu, choisissez un contact</h2>
+      </div>

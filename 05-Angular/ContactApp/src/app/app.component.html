@@ -17,13 +17,19 @@
           </li>
       </ul>
     </div>
+
+    <!-- Formulaire ajout de contact -->
+    
+         <app-ajout-contact
+         (unContactEstCree)="ajouterContactDansListe($event)"></app-ajout-contact>
+    
+
   </div>
     <div class="col-sm-8">
-      <div *ngIf="contactActif" class="jumbotron">
-        <h2 >{{ getNomComplet(contactActif) }}
-        <small>{{ contactActif.email }}</small></h2>
-        <input type="text" class="form-control" placeholder="saissez votre prénom" [(ngModel)]="contactActif.prenom"/> <br />
-        <input type="text" class="form-control" placeholder="saissez votre nom" [(ngModel)]="contactActif.nom"/>
-      </div>
+        <app-profil-contact [contact]="contactActif"></app-profil-contact>
     </div>
 </div>
+
+<footer class="text-center">
+  &copy; Corpyright 2018 - PARIS XIV
+</footer>

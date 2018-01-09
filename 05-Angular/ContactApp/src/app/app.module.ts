@@ -4,11 +4,15 @@ import { FormsModule} from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
+import { ProfilContactComponent } from './profil-contact/profil-contact.component';
+import { AjoutContactComponent } from './ajout-contact/ajout-contact.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProfilContactComponent,
+    AjoutContactComponent
   ],
   imports: [
     BrowserModule,

@@ -70,6 +70,8 @@ créer une app
 ->cd ContactApp
 ->ng serve 
 -> url : loalhost:4200
+Pour générer un nouveau composant avec le CLI de angular 
+->ng g (ou generate) component ProfilContact
 ---------
 () j'emet un fonction sur un evenement
 [] j'écoute quelque chose sur une propriété

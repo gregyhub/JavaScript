@@ -1,19 +1,10 @@
 // importation de "Component" via @angular/cor
 // pour déclarer une classe comme composant de notre application, on importe "Component" via @angular/cor
 import { Component } from '@angular/core';
+import { ProtoContact } from './model/contact.interface';
 
 
-interface ProtoContact {
-  id      : number;
-  prenom  : string;
-  nom     : string;
-  email?   : string;
-};
 
-//je déclare qu'un tableau avec des index doit etre de format contact
-interface ContactArray {
-  [index:number] : ProtoContact;
-}
 
 
 //décorateur du composant
@@ -42,7 +33,7 @@ export class AppComponent {
     nom     : "MALAUD"
   };
   //un tableau qui contient une collection de contacts;
-  Contacts:ContactArray = [
+  Contacts:ProtoContact[] = [
    { id: 1, prenom:"Greg", nom:"MALAUD", email:"g@g.com" },
    { id: 2, prenom:"Mélanie", nom:"SCELLE" },
    { id: 3, prenom:"Jules", nom:"MONBEBE" }
@@ -62,5 +53,14 @@ export class AppComponent {
   choisirUnContact = (unContact:ProtoContact) => {
     this.contactActif = unContact;
     console.log(this.contactActif);
+
   }
+
+  ajouterContactDansListe(event) {
+    //event.contactNew += { id : (this.Contacts.length+1) };
+    console.log(event.contactNew);
+    this.Contacts.push(event.contactNew);
+    console.log(this.Contacts);
+  }
+
 }
